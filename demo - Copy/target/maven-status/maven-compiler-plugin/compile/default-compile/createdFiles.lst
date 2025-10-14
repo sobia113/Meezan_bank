@@ -1,0 +1,11 @@
+com\example\demo\DemoApplication.class
+com\example\demo\repository\OtpRepository.class
+com\example\demo\repository\ProfileRepository.class
+com\example\demo\controller\OtpController$OtpVerifyRequest.class
+com\example\demo\controller\OtpController.class
+com\example\demo\controller\OtpController$OtpGenerateRequest.class
+com\example\demo\controller\ProfileController.class
+com\example\demo\model\Otp.class
+com\example\demo\service\OtpService.class
+com\example\demo\model\Profile.class
+com\example\demo\service\ProfileService.class
