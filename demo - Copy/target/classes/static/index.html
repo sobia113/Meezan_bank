@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Profile List</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f5f6fa;
+      padding: 30px;
+    }
+    h1 {
+      text-align: center;
+      color: #2d3436;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+      background: #fff;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+    th, td {
+      padding: 12px;
+      text-align: left;
+      border-bottom: 1px solid #ccc;
+    }
+    th {
+      background-color: #0984e3;
+      color: white;
+    }
+    tr:hover {
+      background-color: #f1f2f6;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>All Profiles</h1>
+
+  <table id="profileTable">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Full Name</th>
+        <th>Account Title</th>
+        <th>Filer Status</th>
+        <th>Zakat Status</th>
+        <th>CNIC Expiry</th>
+        <th>Date of Birth</th>
+        <th>Address</th>
+        <th>Phone</th>
+        <th>Email</th>
+        <th>City</th>
+        <th>Country</th>
+      </tr>
+    </thead>
+    <tbody id="tableBody">
+      <tr><td colspan="12" style="text-align:center;">Loading...</td></tr>
+    </tbody>
+  </table>
+
+  <script>
+    async function loadProfiles() {
+      try {
+        const response = await fetch("http://localhost:8080/api/profiles");
+        if (!response.ok) throw new Error("Failed to fetch profiles");
+
+        const data = await response.json();
+        const tableBody = document.getElementById("tableBody");
+        tableBody.innerHTML = "";
+
+        if (!data.length) {
+          tableBody.innerHTML = "<tr><td colspan='12' style='text-align:center;'>No profiles found</td></tr>";
+          return;
+        }
+
+        data.forEach(profile => {
+          // Format dates (YYYY-MM-DD)
+          const cnicExpiry = profile.cnicExpiry ? new Date(profile.cnicExpiry).toISOString().split('T')[0] : '-';
+          const dob = profile.dob ? new Date(profile.dob).toISOString().split('T')[0] : '-';
+
+          const row = `
+            <tr>
+              <td>${profile.id}</td>
+              <td>${profile.fullName || '-'}</td>
+              <td>${profile.accountTitle || '-'}</td>
+              <td>${profile.filerStatus || '-'}</td>
+              <td>${profile.zakatStatus || '-'}</td>
+              <td>${cnicExpiry}</td>
+              <td>${dob}</td>
+              <td>${profile.address || '-'}</td>
+              <td>${profile.phone || '-'}</td>
+              <td>${profile.email || '-'}</td>
+              <td>${profile.city || '-'}</td>
+              <td>${profile.country || '-'}</td>
+            </tr>
+          `;
+          tableBody.insertAdjacentHTML("beforeend", row);
+        });
+
+      } catch (error) {
+        console.error("Error:", error);
+        document.getElementById("tableBody").innerHTML = `
+          <tr><td colspan="12" style="text-align:center; color:red;">Error loading data</td></tr>`;
+      }
+    }
+
+    loadProfiles();
+  </script>
+
+</body>
+</html>
