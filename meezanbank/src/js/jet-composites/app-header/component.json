@@ -1,0 +1,13 @@
+{
+  "name": "app-header",
+  "version": "1.0.0",
+  "jetVersion": "^6.0.0",
+  "displayName": "App Header",
+  "description": "Application Header Component",
+  "properties": {
+    "pageTitle": {
+      "type": "string",
+      "value": "My Profile"
+    }
+  }
+}

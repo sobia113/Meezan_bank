@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Edit Profile | Meezan Bank</title>
+  <link rel="stylesheet" href="https://www.oracle.com/webfolder/technetwork/jet/css/libs/oj/v13.1.0/alta/oj-alta.min.css">
+  <link rel="stylesheet" href="https://www.oracle.com/webfolder/technetwork/jet/css/oj/oj-core.css">
+  <link rel="stylesheet" href="css/edit-profile.css">
+</head>
+<body>
+
+
+
+  <app-sidebar></app-sidebar>
+  <app-header></app-header>
+
+  <div class="loading-overlay" data-bind="visible: isLoading">
+  </div>
+
+<div class="main-content">
+  <div class="outer-frame">
+
+    <div class="two-column-layout">
+      <div class="column">
+        <h3>Edit Personal Details</h3>
+        <form id="profileForm">
+          <div class="form-grid">
+            <div class="form-group">
+              <label class="form-label">Registered Contact Number</label>
+              <input type="tel" 
+                     id="phone" 
+                     class="form-input" 
+                     data-bind="textInput: phone, css: { 'error': phoneError() }" 
+                     pattern="03\d{2}-\d{7}" 
+                     placeholder="03xx-xxxxxxx"
+                     required>
+              <span class="error-message" data-bind="text: phoneError"></span>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Registered Email Address</label>
+              <input type="email" 
+                     id="email" 
+                     class="form-input" 
+                     data-bind="textInput: email, css: { 'error': emailError() }" 
+                     placeholder="example@email.com"
+                     required>
+              <span class="error-message" data-bind="text: emailError"></span>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Address</label>
+              <textarea id="addressField"
+                        class="form-input address-textarea" 
+                        data-bind="textInput: address"></textarea>
+              <span class="error-message" data-bind="text: addressError"></span>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Country</label>
+              <select id="countrySelect" 
+                      class="form-input" 
+                      data-bind="value: selectedCountry, options: countryData, optionsText: 'label', optionsValue: 'value', css: { 'error': countryError() }">
+              </select>
+              <span class="error-message" data-bind="text: countryError"></span>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">City</label>
+              <select id="citySelect" 
+                      class="form-input" 
+                      data-bind="value: selectedCity, options: filteredCityData, optionsText: 'label', optionsValue: 'value', css: { 'error': cityError() }">
+              </select>
+              <span class="error-message" data-bind="text: cityError"></span>
+            </div>
+          </div>
+
+          <p class="processing-note">
+            Your contact update request will be processed within<br>
+            <strong>three working days.</strong>
+          </p>
+        </form>
+      </div>
+
+      <div class="column">
+        <h3>Update CNIC Details</h3>
+        
+        <div class="cnic-card-container">
+          <!-- Replace dashed frame with actual CNIC image from project images -->
+          <div style="width: 100%; max-width: 450px; height: 250px; border-radius: 8px; display: flex; align-items: center; justify-content: center; margin: 0 auto; background: transparent; cursor: pointer; overflow: hidden;" onclick="document.getElementById('cnicUpload').click()">
+            <img id="cnicPreview" src="css/images/cnic.png" alt="CNIC" style="width:100%;height:100%;object-fit:cover;display:block;" />
+          </div>
+          <input type="file" id="cnicUpload" style="display: none;" accept="image/*" onchange="handleCnicUpload(event)">
+
+          <script>
+            // Preview selected CNIC image in place of the placeholder
+            function handleCnicUpload(event) {
+              var file = event.target.files && event.target.files[0];
+              if (!file) return;
+
+              // Only allow image files
+              if (!file.type.startsWith('image/')) {
+                alert('Please select a valid image file.');
+                return;
+              }
+
+              var img = document.getElementById('cnicPreview');
+              var reader = new FileReader();
+
+              reader.onload = function(e) {
+                img.src = e.target.result;
+              };
+
+              reader.readAsDataURL(file);
+            }
+
+            // Optional: expose updateCnic function to the page if not already defined
+            function updateCnic() {
+              // Placeholder action - you can wire this up to your viewModel or API
+              alert('CNIC update feature not implemented yet.');
+            }
+          </script>
+        </div>
+
+        <div class="cnic-details-container">
+          <div class="info-row">
+            <div class="info-item">
+              <span class="info-label">CNIC Number:</span>
+              <span class="info-value">42401-0000000-1</span>
+            </div>
+            <div class="info-item">
+              <span class="info-label">CNIC Expiration Date:</span>
+              <span class="info-value">25-june-2025</span>
+            </div>
+          </div>
+        </div>
+
+        <p class="note-text">
+          If you have renewed your CNIC, kindly update the CNIC expiration date to avoid any restriction on your account.
+        </p>
+
+        <p class="note-text">
+          <strong>Note:</strong> If you still haven't renewed your CNIC please do so by visiting your nearest NADRA office or visiting the NADRA.
+        </p>
+
+        <div class="link-text">
+          <a href="https://id.nadra.gov.pk" target="_blank">id.nadra.gov.pk/in-app/management</a>
+        </div>
+
+        <button class="update-cnic-btn" onclick="updateCnic()">Update CNIC</button>
+      </div>
+
+      <!-- Bottom Buttons -->
+      <div class="btn-container">
+        <oj-button class="btn back-btn" on-oj-action="[[goBack]]">Back</oj-button>
+        <oj-button class="btn next-btn" on-oj-action="[[goToOtpVerification]]">Next</oj-button>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

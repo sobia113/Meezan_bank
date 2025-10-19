@@ -1,0 +1,487 @@
+/* ========================================
+   HEADER COMPONENT STYLES
+   ======================================== */
+
+app-header:not(.oj-complete) {
+  visibility: hidden;
+}
+
+app-header {
+  min-height: 50px;
+  display: block;
+}
+
+:root {
+  --sidebar-width: 360px;
+  --header-height: 100px;
+}
+
+app-header[hidden] {
+  display: none;
+}
+
+app-header .app-header {
+  background-color: #762882;
+  color: #fff;
+  padding: 0 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: var(--header-height);
+  position: fixed;
+  top: 0;
+  left: var(--sidebar-width);
+  right: 0;
+  z-index: 1000;
+  transition: left 0.3s ease;
+}
+
+app-header .app-header h1 {
+  margin: 0;
+  font-size: 28px;
+  color: #fff;
+  font-weight: 200;
+  letter-spacing: 0.3px;
+}
+
+app-header .header-icons {
+  display: flex;
+  gap: 39px;
+  align-items: center;
+  margin-left: auto;
+  margin-right: 30px;
+}
+
+app-header .app-header img {
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+  filter: brightness(0) invert(1);
+  width: 20px;
+  height: 20px;
+}
+
+app-header .app-header img:hover {
+  opacity: 0.85;
+}
+
+app-header .mobile-menu-btn {
+  display: none;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 5px;
+  z-index: 1101;
+}
+
+app-header .mobile-menu-btn span {
+  display: block;
+  width: 25px;
+  height: 3px;
+  background: white;
+  margin: 5px 0;
+  border-radius: 2px;
+  transition: all 0.3s ease;
+}
+
+/* ========================================
+   SIDEBAR COMPONENT STYLES
+   ======================================== */
+
+app-sidebar:not(.oj-complete) {
+  visibility: hidden;
+}
+
+app-sidebar {
+  min-height: 50px;
+  width: 180px;
+  display: block;
+}
+
+app-sidebar[hidden] {
+  display: none;
+}
+
+app-sidebar .sidebar {
+  width: var(--sidebar-width);
+  background-color: #fff;
+  border-right: 1px solid #e0e0e0;
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  padding-top: calc(var(--header-height) - 10px);
+  z-index: 999;
+  transition: transform 0.25s cubic-bezier(.2,.8,.2,1), box-shadow 0.2s ease;
+  overflow-y: auto;
+}
+
+app-sidebar .menu-item {
+  padding: 16px 22px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  font-size: 20px;
+  cursor: pointer;
+  color: #000000;
+  border-left: 3px solid transparent;
+  transition: all 0.2s ease;
+  margin-bottom: 12px;
+  font-weight: 400;
+}
+
+app-sidebar .menu-item img {
+  width: 26px;
+  height: 26px;
+  opacity: 1;
+  flex-shrink: 0;
+  filter: brightness(0) saturate(100%) invert(19%) sepia(54%) saturate(2815%) hue-rotate(273deg) brightness(87%) contrast(95%);
+}
+
+app-sidebar .menu-item:hover {
+  background-color: #f8f4fb;
+  color: #7a147a;
+}
+
+app-sidebar .menu-item.active {
+  background-color: #f3e5f5;
+  color: #7a147a;
+  font-weight: 600;
+  border-left: 3px solid #6a1b9a;
+}
+
+app-sidebar .menu-item.active img {
+  opacity: 1;
+  filter: brightness(0) saturate(100%) invert(19%) sepia(54%) saturate(2815%) hue-rotate(273deg) brightness(87%) contrast(95%);
+}
+
+app-sidebar .menu-item:nth-child(4) {
+  position: relative;
+}
+
+app-sidebar .menu-item:nth-child(4)::after {
+  content: "";
+  position: absolute;
+  left: 22px;
+  right: 22px;
+  bottom: -8px;
+  height: 1px;
+  background: #e6e6e6;
+}
+
+app-sidebar .sidebar-footer {
+  margin-top: auto;
+  padding: 50px 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 24px;
+  margin-bottom: 1px;
+}
+
+app-sidebar .sidebar-footer-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 20px;
+  color: #000;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+app-sidebar .sidebar-footer-item:hover {
+  color: #7a147a;
+}
+
+app-sidebar .sidebar-footer-item img {
+  width: 22px;
+  height: 22px;
+  margin-bottom: 6px;
+  opacity: 1;
+  filter: brightness(0) saturate(100%) invert(19%) sepia(54%) saturate(2815%) hue-rotate(273deg) brightness(87%) contrast(95%);
+}
+
+app-sidebar .sidebar-footer-item:hover img {
+  opacity: 1;
+}
+
+app-sidebar .sidebar-divider {
+  width: 1px;
+  background: #d0d0d0;
+  height: 40px;
+}
+
+/* ========================================
+   GLOBAL RESET & BASE STYLES
+   ======================================== */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f5f5f5;
+  color: #333;
+  display: flex;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+.main-content {
+  margin-left: var(--sidebar-width);
+  padding: calc(var(--header-height) + 20px) 30px 30px 0px;
+  flex: 1;
+  width: calc(100% - var(--sidebar-width));
+  min-width: 0;
+  transition: margin-left 0.3s ease, width 0.3s ease;
+  height: calc(100vh - var(--header-height));
+  overflow-y: auto;
+}
+
+.outer-frame {
+  background: #fff;
+  border-radius: 8px;
+  padding: 25px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+  position: absolute;
+  top: calc(var(--header-height) + 35px);
+  left: calc(var(--sidebar-width) - 50px);
+  right: 15px;
+  bottom: 15px;
+  width: calc(100% - var(--sidebar-width) - 80px);
+  max-width: calc(100% - var(--sidebar-width) - 60px);
+  height: calc(100vh - var(--header-height) - 30px);
+  max-height: calc(100vh - var(--header-height) - 50px);
+  box-sizing: border-box;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.outer-frame h2 {
+  margin-bottom: 20px;
+  color: #333;
+  font-size: clamp(24px, 4vw, 40px);
+  font-weight: 600;
+}
+
+/* ========================================
+   ORACLE JET BUTTON OVERRIDES
+   ======================================== */
+
+.oj-button {
+  display: inline-flex !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+.oj-button:focus,
+.oj-button:active {
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+.oj-button .oj-button-button {
+  width: 100% !important;
+  min-width: 120px !important;
+  height: auto !important;
+  border: none !important;
+}
+
+oj-button.back-btn .oj-button-button {
+  background-color: #dfd1e2 !important;
+  color: #762882 !important;
+  border: none !important;
+  border-radius: 8px !important;
+  width: 150px !important;
+  height: 50px !important;
+  font-size: 18px !important;
+  font-weight: 700 !important;
+}
+
+oj-button.next-btn .oj-button-button {
+  background-color: #762882 !important;
+  color: #fff !important;
+  border: none !important;
+  border-radius: 8px !important;
+  width: 300px !important;
+  width: 300px !important;
+  font-weight: 700 !important;
+}
+
+oj-button.back-btn .oj-button-text {
+  color: #762882 !important;
+}
+
+oj-button.edit-btn .oj-button-button {
+  background-color: #762882 !important;
+  color: white !important;
+  border: none !important;
+  border-radius: 10px !important;
+  padding: 10px 22px !important;
+  height: 50px !important;
+  font-size: 21px;
+  font-weight: 700 !important;
+}
+
+/* ========================================
+   PROCESSING NOTE
+   ======================================== */
+
+.processing-note {
+  margin-top: 15px;
+  margin-bottom: 20px;
+  padding: 0;
+  background-color: transparent !important;
+  border-left: none !important;
+  border: none !important;
+  font-size: 18px;
+  color: #333;
+  border-radius: 4px;
+  line-height: 1.4;
+}
+
+.processing-note strong {
+  font-weight: 700;
+}
+
+/* ========================================
+   LOADING OVERLAY
+   ======================================== */
+
+.loading-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+/* ========================================
+   RESPONSIVE BREAKPOINTS
+   ======================================== */
+
+@media screen and (max-width: 1199px) {
+  :root {
+    --sidebar-width: 260px;
+    --header-height: 90px;
+  }
+
+  .outer-frame {
+    position: static;
+    width: 100%;
+    height: auto;
+    max-height: none;
+    padding: 20px;
+    margin: calc(var(--header-height) + 20px) 0 20px 0;
+  }
+}
+
+@media screen and (max-width: 991px) {
+  :root {
+    --sidebar-width: 240px;
+    --header-height: 70px;
+  }
+
+  app-header .app-header h1 {
+    font-size: 24px;
+  }
+  
+  app-header .mobile-menu-btn {
+    display: block;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  app-sidebar .sidebar {
+    transform: translateX(-100%);
+    width: 280px;
+  }
+  
+  app-sidebar .sidebar.open {
+    transform: translateX(0);
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.3);
+    z-index: 1100;
+  }
+  
+  :root {
+    --sidebar-width: 0px;
+    --header-height: 60px;
+  }
+
+  app-header .app-header {
+    left: 0 !important;
+    width: 100% !important;
+  }
+  
+  app-header .mobile-menu-btn {
+    display: block;
+  }
+  
+  app-header .app-header h1 {
+    font-size: 18px;
+  }
+  
+  .main-content {
+    margin-left: 0 !important;
+    width: 100% !important;
+    padding: calc(var(--header-height) + 15px) 12px 12px 12px !important;
+  }
+
+  .outer-frame {
+    padding: 12px;
+    margin: calc(var(--header-height) + 10px) 0 10px 0;
+  }
+}
+
+/* ========================================
+   SCROLLBAR
+   ======================================== */
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+::-webkit-scrollbar {
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
+}
+
+::-webkit-scrollbar-track {
+  display: none !important;
+}
+
+::-webkit-scrollbar-thumb {
+  display: none !important;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+* {
+  -ms-overflow-style: none !important;  /* IE and Edge */
+  scrollbar-width: none !important;  /* Firefox */
+}
+
+/* Specific targeting for main content and outer frame */
+.main-content,
+.outer-frame,
+body,
+html {
+  -ms-overflow-style: none !important;
+  scrollbar-width: none !important;
+}
+
+.main-content::-webkit-scrollbar,
+.outer-frame::-webkit-scrollbar,
+body::-webkit-scrollbar,
+html::-webkit-scrollbar {
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
+}

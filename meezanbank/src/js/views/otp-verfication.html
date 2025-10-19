@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>OTP Verification</title>
+  <link rel="stylesheet" href="css/otp.css">
+
+</head>
+<body>
+
+<app-sidebar></app-sidebar>
+<app-header></app-header>
+
+<div class="outer-frame">
+    <h2>One Time Password</h2>
+
+<div class="otp-section">
+  <div class="otp-row">
+    <div class="otp-inputs">
+      <input type="text" maxlength="1" class="otp-box" data-bind="event: { input: handleInput }" autofocus />
+      <input type="text" maxlength="1" class="otp-box" data-bind="event: { input: handleInput }" />
+      <input type="text" maxlength="1" class="otp-box" data-bind="event: { input: handleInput }" />
+      <input type="text" maxlength="1" class="otp-box" data-bind="event: { input: handleInput }" />
+      <input type="text" maxlength="1" class="otp-box" data-bind="event: { input: handleInput }" />
+      <input type="text" maxlength="1" class="otp-box" data-bind="event: { input: handleInput }" />
+    </div>
+    <br>
+<div class="timer-container">
+  <span class="otp-label">OTP is active for</span>
+  <strong class="otp-timer" data-bind="text: timerText">00:30</strong>
+</div>
+
+
+  </div>
+</div>
+
+
+    <p class="info-text">Please enter the OTP received on your registered mobile number <br><strong>03********7</strong></p>
+    <p class="hint">Do not share this OTP with anyone.</p>
+
+    <div class="otp-actions">
+      <button data-bind="click: resendOtpViaCall, attr: { disabled: !timerExpired() || isResending() ? 'disabled' : null }, text: isResending() ? 'Calling...' : 'Receive OTP via Call'">Receive OTP via Call</button>
+      <button data-bind="click: resendOtp, attr: { disabled: !timerExpired() || isResending() ? 'disabled' : null }, text: isResending() ? 'Sending...' : 'Resend OTP'">Resend OTP</button>
+    </div>
+
+    <p class="sms-instruction">In case you do not receive an OTP on your registered mobile number, please<br>type MNP and send it as an SMS to 9096 or 8067. <a href="#" class="learn-more-link">Learn more...</a></p>
+
+    <div class="btn-container">
+      <oj-button class="back-btn" data-bind="click: goBack">Back</oj-button>
+      <button class="edit-btn1" data-bind="click: goToEdit, enable: allFilled">
+        Update Personal Information
+      </button>
+    </div>
+  </div>
+</div>
+</body>
+</html>

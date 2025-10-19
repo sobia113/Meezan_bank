@@ -1,0 +1,329 @@
+
+.info-columns {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr auto;
+  column-gap: 24px;
+  row-gap: 12px;
+  align-items: center;
+  width: 100%;
+}
+
+.info-col {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  min-width: 0;
+  margin-bottom: 5px;
+}
+
+.info-col .info-label {
+  color: #7a147a;
+  font-weight: 700;
+  margin-bottom: 4px;
+  font-size: 18px;
+}
+
+.info-col .info-value {
+  color: #333;
+  margin-top: -8px;
+  margin-bottom: 8px !important;
+  font-size: 20px;
+  font-weight: 550;
+}
+
+.info-col.cnic-col {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  grid-column: 4;
+  grid-row: 1;
+}
+
+/* Profile Cards */
+.profile-card {
+  background: #fff;
+  border: 1px solid #e7e7e7;
+  border-radius: 10px;
+  padding: 20px 28px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  width: 63%;
+  min-height: 190px;
+}
+
+.profile-card1 {
+  background: #fff;
+  border: 1px solid #e7e7e7;
+  border-radius: 10px;
+  padding: 20px 28px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  width: 63%;
+  min-height: 280px;
+  font-size: clamp(18px, 2vw, 22px);
+}
+
+.profile-name {
+  font-size: 26px;
+  font-weight: 700;
+  color: #762882;
+  margin-bottom: 8px;
+  font-family: "Segoe UI", "Roboto", "Helvetica Neue", Arial, sans-serif;
+}
+
+.account-title {
+  font-size: 20px;
+  color: #333;
+  margin-bottom: 20px;
+  margin-top: -5px;
+  font-weight: 600;
+}
+
+.info-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  font-size: clamp(12px, 2vw, 14px);
+  font-weight: 500;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.info-values {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+.info-values > div {
+  width: 100%;
+}
+
+.contact-details {
+  margin-top: 14px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 28px;
+  width: 100%;
+}
+
+.contact-details > div {
+  flex: 1 1 220px;
+  min-width: 180px;
+}
+
+/* Update CNIC Button */
+.update-cnic-btn {
+  background-color: #f5f5f5 !important;
+  color: #7a147a !important;
+  border: 1px solid #e0e0e0 !important;
+  border-radius: 8px !important;
+  width: 180px !important;
+  height: 45px !important;
+  font-size: 18px !important;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.1s ease;
+  font-weight: 700;
+  white-space: nowrap;
+  align-self: center;
+}
+
+.update-cnic-btn:hover {
+  background-color: #e8e8e8 !important;
+}
+
+.update-cnic-btn:active {
+  background-color: #d5d5d5 !important;
+}
+
+.update-btn {
+  background-color: #6f2b7c;
+  color: #ffffff;
+  border: none;
+  border-radius: 6px;
+  padding: 12px 18px;
+  min-width: 140px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: clamp(14px, 2vw, 18px);
+  transition: background-color 0.2s ease;
+  white-space: nowrap;
+}
+
+.update-btn:hover {
+  background-color: #5a1d63;
+}
+
+/* ========================================
+   RESPONSIVE BREAKPOINTS
+   ======================================== */
+
+@media screen and (max-width: 991px) {
+  .info-columns {
+    grid-template-columns: 1fr 1fr;
+    column-gap: 20px;
+  }
+  
+  .info-col.cnic-col {
+    grid-column: 1 / 3;
+    grid-row: 3;
+    justify-content: center;
+    margin-top: 10px;
+    top: 0;
+    right: 0;
+  }
+
+  .profile-card, .profile-card1 {
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .profile-card, .profile-card1 {
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 14px !important;
+  }
+
+  .info-columns {
+    grid-template-columns: 1fr !important;
+    column-gap: 12px;
+  }
+  
+  .info-col.cnic-col {
+    grid-column: 1;
+    grid-row: 4;
+    justify-content: center;
+    margin-top: 15px;
+  }
+  
+  .update-cnic-btn {
+    width: 100% !important;
+    max-width: 220px !important;
+  }
+}
+
+/* Smaller value text inside the second profile card */
+.profile-card1 .info-value {
+  font-size: 19px !important;
+  color: #000 !important;
+  font-weight: 550;
+  line-height: 1.35;
+}
+
+/* Spacing adjustments to match reference gaps inside the second profile card */
+.profile-card1 .info-columns {
+  grid-template-columns: 1fr 1fr !important;
+  column-gap: 40px !important; 
+  row-gap: 12px !important;/* increase left-right gap */
+}
+.profile-card1 .contact-details {
+  gap: 40px !important; /* match column separation below */
+}
+.profile-card1 .info-col { margin-bottom: 12px; }
+
+/* Vertical spacing between key sections in the second profile card */
+.profile-card1 .info-columns:first-of-type { margin-bottom: 16px; }
+.profile-card1 > .info-col { margin-top: 12px; margin-bottom: 12px; }
+.profile-card1 .contact-details { margin-top: 12px; }
+
+/* Increase gap between first row and Registered Home Address in second card */
+.profile-card1 > .info-columns:first-of-type { margin-bottom: 30px !important; }
+.profile-card1 > .info-columns:second-of-type { margin-bottom: 21px !important; }
+
+/* Gap between Registered Home Address and Registered Contact Number in second card */
+.profile-card1 > .info-col { margin-bottom: 32px !important; }
+.profile-card1 .contact-details { margin-top: 1px !important; }
+
+/* Make contact details font sizes bigger */
+.profile-card1 .contact-details .info-label {
+  font-size: 20px !important;
+  color: #762882 !important;
+  font-weight: 700 !important;
+  margin-bottom: 4px !important;
+}
+
+.profile-card1 .contact-details .info-value {
+  font-size: 20px !important;
+  color: #333 !important;
+  font-weight: 550 !important;
+}
+
+/* Prevent contact-detail labels from wrapping to the next line */
+.profile-card1 .contact-details .info-label { white-space: nowrap !important; }
+
+/* Top profile card spacing tweaks to match reference (finalize) */
+.profile-card .info-columns { column-gap: 16px !important; }
+.profile-card .info-col.cnic-col { align-self: center !important; top: 0 !important; right: 0 !important; }
+
+/* Update CNIC button size and precise spacing next to date */
+.update-cnic-btn { width: 158px !important; }
+
+/* Force CNIC Expiration Date value to black in the top profile card */
+.profile-card .cnic-expiry .info-value { 
+  color: #333 !important; 
+  font-weight: 550 !important; 
+  font-size: 20px !important;
+}
+
+/* Position CNIC button next to the date and center it vertically (top card) */
+.profile-card .info-columns { grid-template-columns: auto auto auto auto !important; column-gap: 16px !important; }
+.profile-card .info-col.cnic-col { grid-row: 1 !important; align-self: center !important; right: 0 !important; top: 0 !important; }
+
+/* Enlarge and position Update CNIC button next to the date */
+.update-cnic-btn { width: 170px !important; }
+
+/* Stronger styling for status values (Active Taxpayer, Applicable) */
+.profile-card .info-col .info-value.status-value { 
+  color: #1f996a !important; 
+  font-weight: 600 !important; 
+  font-size: 20px !important;
+}
+
+/* Better spacing for labels in profile cards */
+.profile-card1 .info-label {
+  margin-bottom: 8px !important;
+  font-size: 20px !important;
+  color: #7a147a !important;
+  font-weight: 700 !important;
+}
+
+.profile-card .info-label {
+  margin-bottom: 6px !important;
+  font-size: 18px !important;
+  color: #7a147a !important;
+  font-weight: 700 !important;
+}
+
+/* Make specific text elements lighter in both profile cards with equal weight */
+.profile-card1 .info-value {
+  font-weight: 550 !important;
+  font-size: 20px !important;
+  color: #333 !important;
+}
+
+.profile-card .info-value {
+  font-weight: 400 !important;
+  font-size: 20px !important;
+  color: #333 !important;
+}
+
+.profile-card .cnic-expiry .info-value {
+  font-weight: 550 !important;
+}
+
+/* Slide down animation for success message */
+@keyframes slideDown {
+  0% {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+

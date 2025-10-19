@@ -1,0 +1,797 @@
+/* ========================================
+   EDIT PROFILE PAGE STYLES
+   ======================================== */
+
+/* Two Column Layout */
+.two-column-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 40px;   /* keep horizontal spacing */
+  row-gap: 6px;       /* slightly less vertical spacing to move buttons up */
+  align-items: start;
+  width: 100%;
+  position: relative;
+  padding: 0;
+}
+
+.two-column-layout > .column {
+  min-width: 0;
+  width: 100%;
+}
+
+.two-column-layout h3 {
+  font-size: 32px;
+  font-weight: 600;
+  color: #4a4a4a;
+  margin-bottom: 20px;
+  margin-top: 0;
+}
+
+/* Move only the CNIC heading to the right */
+.two-column-layout .column:nth-child(2) h3 {
+  text-align: center;
+  margin-right: 300px;
+}
+
+/* Override note-text margin for right positioning */
+.two-column-layout .column:nth-child(2) .note-text {
+  margin-left: 70px !important;
+  margin-right: auto !important;
+}
+
+/* Form Styles */
+.form-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 0; /* use explicit margins per group for consistent control */
+  width: 100%;
+  max-width: 450px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0px;
+  width: 100%;
+}
+
+/* Equal spacing for all form groups via margin */
+.form-grid > .form-group { margin-bottom: -2px; }
+.form-grid > .form-group:last-child { margin-bottom: 0; }image.png
+
+/* Labels tighter spacing */
+.form-group .form-label {
+  margin-bottom: 8px !important;
+}
+
+/* Remove special case - keep all gaps equal */
+/* .form-group:nth-child(2) { margin-top: -5px; } */
+
+/* Error messages should appear below input fields and push form grid down */
+.form-group .error-message {
+  position: relative;
+  z-index: 1;
+  background-color: transparent;
+  padding: 0;
+  box-shadow: none;
+}
+/* Dynamic spacing based on whether an error is present */
+.form-group .error-message:empty { display: none; min-height: 0; margin-top: 0; margin-bottom: 0; }
+.form-group .error-message:not(:empty) { display: block; margin-top: 6px; margin-bottom: 160px; min-height: 22px; line-height: 1.25; }
+
+/* Remove blue background on focus/selection */
+.form-group .form-input,
+.address-textarea,
+input,
+textarea {
+  background-color: #fff !important;
+}
+
+.form-group .form-input:focus,
+.address-textarea:focus,
+input:focus,
+textarea:focus {
+  outline: none !important;
+  background-color: #fff !important;
+  box-shadow: none !important;
+  border-color: #762882 !important;
+}
+
+/* Custom text selection colors to avoid blue highlight */
+.form-group .form-input::selection,
+.address-textarea::selection,
+input::selection,
+textarea::selection {
+  background: #eee !important;
+  color: #000 !important;
+}
+
+.form-group .form-label {
+  font-size: 19px !important;
+  font-weight: 100 !important;
+  color: #000000 !important;
+  margin-bottom: 8px !important;
+  display: block !important;
+  line-height: 1.2 !important;
+}
+
+.form-group .form-input {
+  width: 100% !important;
+  padding: 14px 18px !important;
+  border: 1px solid #ddd !important;
+  border-radius: 8px !important;
+  font-size: 19px !important;
+  color: #333 !important;
+  background-color: #fff !important;
+  transition: all 0.2s ease !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1) !important;
+  min-height: 52px !important;
+  box-sizing: border-box !important;
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+}
+
+.form-input:focus {
+  outline: none;
+  border-color: #762882;
+  box-shadow: 0 0 0 3px rgba(118, 40, 130, 0.15);
+  color: #333;
+  transform: translateY(-1px);
+}
+
+.form-input.error {
+  border-color: #d32f2f;
+}
+
+.address-textarea {
+  min-height: 90px;
+  resize: vertical;
+  font-family: Arial, sans-serif;
+  padding: 14px 18px;
+  line-height: 1.5;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  font-size: 19px;}
+
+.error-message {
+  color: #d32f2f !important;
+  font-size: 20px !important;
+  min-height: 20px !important;
+  margin-top: 0 !important;
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+}
+
+/* More specific selectors for error messages in form groups */
+.form-group .error-message {
+  color: #d32f2f !important;
+  font-size: 20px !important;
+  min-height: 0 !important;
+  margin-top: 0 !important;
+  margin-bottom: 0 !important; /* base: no extra space */
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  position: static !important; /* ensure it flows in normal document flow */
+  z-index: auto !important;
+  background-color: transparent !important;
+  padding: 0 !important;
+  box-shadow: none !important;
+}
+
+/* Enforce extra space only when there is an error message */
+.form-group .error-message:not(:empty) {
+  margin-top: 6px !important;
+  margin-bottom: 16px !important;
+  min-height: 20px !important;
+  line-height: 1.25 !important;
+}
+
+.form-grid .error-message {
+  color: #d32f2f !important;
+  font-size: 20px !important;
+  min-height: 20px !important;
+  margin-top: 4px !important;
+  margin-bottom: 0 !important;
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  position: relative !important;
+  z-index: 1 !important;
+  background-color: transparent !important;
+  padding: 0 !important;
+  box-shadow: none !important;
+}
+
+
+
+/* CNIC Details Column */
+.cnic-details-column {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+}
+
+.cnic-card-container {
+  width: 100%;
+  max-width: 100%;
+  margin: 0 0 16px 0;
+  display: flex;
+  justify-content: center;
+}
+
+.cnic-card-container > div {
+  background: linear-gradient(135deg, #4a9d7f 0%, #3d8b6f 100%) !important;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15) !important;
+  border-radius: 12px !important;
+}
+
+.cnic-info-box {
+  background: #f8f8f8;
+  border: 1px solid #e0e0e0;
+  border-radius: 6px;
+  padding: 16px;
+  margin-bottom: 16px;
+  box-shadow: none;
+}
+
+.cnic-data-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.cnic-data-item {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.cnic-data-item .info-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: #666;
+  margin-bottom: 2px;
+}
+
+.cnic-data-item .info-value {
+  font-size: 14px;
+  color: #333;
+  font-weight: 600;
+}
+
+.note-text {
+  font-size: 12px;
+  color: #666;
+  line-height: 1.6;
+  margin-bottom: 8px;
+  margin-top: 0;
+}
+
+.link-text {
+  margin-bottom: 16px;
+  margin-top: 0;
+}
+
+.link-text a {
+  color: #1e90ff;
+  text-decoration: underline;
+  font-size: 12px;
+  word-break: break-all;
+}
+
+/* Update CNIC Button */
+.cnic-details-column .update-cnic-btn {
+  background-color: #e0d9d9;
+  color: #762882;
+  border: none;
+  border-radius: 6px;
+  padding: 12px 24px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-weight: 600;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+  white-space: nowrap;
+  min-height: 44px;
+  width: 100%;
+  margin-top: 8px;
+}
+
+.cnic-details-column .update-cnic-btn:hover {
+  background-color: #5a1d63;
+  transform: translateY(-1px);
+  box-shadow: #e0d9d9;
+}
+
+/* Bottom Buttons Container */
+.two-column-layout > .btn-container {
+  grid-column: 1 / -1;
+  display: flex !important;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 16px;
+  margin-top: 0; /* base: no extra space from container */
+  margin-bottom: 0;
+  padding-left: 0;
+  width: 100%;
+  clear: both;
+  visibility: visible !important;
+  opacity: 1 !important;
+}
+
+.two-column-layout .btn {
+  display: inline-flex !important;
+  visibility: visible !important;
+}
+
+.two-column-layout .back-btn{
+  min-width: 50px;
+  height: 48px;
+}
+
+.two-column-layout .next-btn {
+  min-width: 300px;
+  height: 48px;
+}
+
+/* Oracle JET Button Overrides */
+.two-column-layout oj-button.next-btn {
+  min-width: 250px !important;
+  width: 250px !important;
+}
+
+.two-column-layout oj-button.next-btn .oj-button-button {
+  min-width: 250px !important;
+  width: 250px !important;
+  height: 48px !important;
+  font-size: 20px !important;
+}
+
+
+/* CNIC Section Styling - Mobile Design */
+.two-column-layout .column h3 {
+  font-size: 30px !important;
+  font-weight: 700 !important;
+  color: #000000 !important;
+  margin-bottom: 20px !important;
+}
+
+.cnic-details-container {
+  width: 100%;
+  max-width: 600px; /* Shrunk width to match button */
+  margin: 0 auto;
+  border: none; /* Removed frame */
+  border-radius: 8px;
+  padding: 16px;
+  background-color: transparent; /* Removed background */
+  margin-bottom: 8px; /* reduced margin */
+}
+
+.info-row {
+  display: flex;
+  justify-content: space-between; /* Space between items */
+  gap: 0px; /* No gap */
+  margin-bottom: 8px;
+}
+
+.info-item {
+  display: flex;
+  flex-direction: column;
+  width: 45%; /* Reduced width to create more space */
+}
+
+/* Move CNIC expiration date to the right */
+.info-item:last-child {
+  text-align: right;
+}
+
+.info-item:last-child .info-label,
+.info-item:last-child .info-value {
+  text-align: right;
+}
+
+.info-label {
+  font-size: 18px; /* Reduced font size */
+  font-weight: 600;
+  color: #762882;
+  margin-bottom: 2px;
+  text-align: left;
+}
+
+.info-value {
+  font-size: 20px; /* Reduced font size */
+  font-weight: 300;
+  color: #1c9671;
+  margin-top: 0;
+  margin-bottom: 2px;
+  text-align: left;
+}
+
+.note-text {
+  font-size: 22px !important;
+  color: #666 !important;
+  line-height: 1.5 !important;
+  margin-bottom: 8px !important; /* reduced margin */
+  max-width: 600px !important; /* Shrunk to match container */
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
+/* More specific selectors for note text */
+p.note-text {
+  font-size: 22px !important;
+  color: #666 !important;
+}
+
+.column .note-text {
+  font-size: 22px !important;
+  color: #666 !important;
+}
+
+.link-text {
+  margin: 8px 0; /* reduced margin */
+  max-width: 600px; /* Shrunk to match container */
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.link-text a {
+  color: #007bff !important;
+  text-decoration: none !important;
+  font-size: 22px !important;
+  font-weight: 500 !important;
+}
+
+/* More specific selectors for link text */
+.column .link-text a {
+  font-size: 22px !important;
+  color: #007bff !important;
+}
+
+.link-text a[href] {
+  font-size: 22px !important;
+  color: #007bff !important;
+}
+
+.link-text a:hover {
+  text-decoration: underline;
+}
+
+.update-cnic-btn {
+  background-color: #e0d9d9 !important; /* Light grey background */
+  color: #762882 !important; /* Purple text */
+  border: none !important;
+  border-radius: 8px !important;
+  padding: 16px 24px !important; /* Increased padding for height */
+  font-size: 18px !important; /* Increased font size */
+  font-weight: 600 !important;
+  cursor: pointer !important;
+  transition: all 0.2s ease !important;
+  width: 600px !important; /* Fixed width */
+  height: 60px !important; /* Fixed height */
+  margin-top: 20px !important;
+  display: block !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
+/* More specific selectors to override any other CSS */
+button.update-cnic-btn {
+  background-color: #e0d9d9 !important;
+  color: #762882 !important;
+}
+
+.column .update-cnic-btn {
+  background-color: #e0d9d9 !important;
+  color: #762882 !important;
+}
+
+div .update-cnic-btn {
+  background-color: #e0d9d9 !important;
+  color: #762882 !important;
+}
+
+.update-cnic-btn:hover {
+  background-color: #762882 !important; /* Lighter purple on hover */
+  color: #ffffff !important; /* White text on hover */
+  transform: translateY(-1px) !important;
+  box-shadow: 0 4px 12px rgba(118, 40, 130, 0.2) !important;
+}
+
+/* CNIC Image Styling */
+#cnicPreview {
+  background: transparent !important;
+  border: none !important;
+  filter: none !important;
+  mix-blend-mode: normal !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+.cnic-card-container img {
+  background: transparent !important;
+  border: none !important;
+  filter: none !important;
+  mix-blend-mode: normal !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+.cnic-card-container {
+  background: transparent !important;
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+.cnic-card-container > div {
+  background: transparent !important;
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+/* Remove any frame/border from CNIC container */
+div[style*="border-radius"] {
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+/* Oracle JET Select Overrides for Edit Profile */
+.form-group oj-select-single {
+  width: 100% !important;
+  min-height: 52px !important;
+  border: 1px solid #ddd !important;
+  border-radius: 8px !important;
+  background-color: transparent !important; /* remove background */
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+  box-sizing: border-box !important;
+  gap: 0 !important; /* ensure no extra space inside JET select wrapper */
+  outline: none !important; /* remove any outline */
+  box-shadow: none !important; /* remove any shadow */
+}
+
+/* Country and City dropdown font size - consistent with other form inputs */
+.form-group oj-select-single .oj-text-field-input {
+  color: #333 !important;
+  font-size: 19px !important;
+  padding: 14px 18px !important;
+}
+
+/* More specific selectors for Oracle JET dropdown text */
+oj-select-single .oj-text-field-input {
+  font-size: 19px !important;
+  color: #333 !important;
+}
+
+oj-select-single .oj-text-field {
+  font-size: 19px !important;
+}
+
+oj-select-single input {
+  font-size: 19px !important;
+  color: #333 !important;
+}
+
+.form-group oj-select-single .oj-text-field {
+  border-radius: 8px !important;
+  border: none !important; /* remove border */
+  box-shadow: none !important; /* remove shadow */
+  min-height: 52px !important;
+  font-size: 19px !important;
+  display: flex !important;
+  align-items: center !important;
+  background-color: transparent !important; /* remove background */
+  outline: none !important; /* remove outline */
+}
+
+.form-group oj-select-single .oj-text-field-container {
+  border: none !important;
+  background: transparent !important;
+  outline: none !important; /* remove outline */
+  box-shadow: none !important; /* remove shadow */
+}
+
+/* Extra specific selector to ensure country field font size is applied */
+#countrySelect .oj-text-field-input,
+#citySelect .oj-text-field-input,
+#countrySelect .oj-text-field,
+#citySelect .oj-text-field,
+#countrySelect input,
+#citySelect input {
+  font-size: 19px !important;
+  color: #333 !important;
+}
+
+/* Maximum specificity selectors for Oracle JET select components */
+.form-group #countrySelect .oj-text-field-input,
+.form-group #citySelect .oj-text-field-input,
+.form-group #countrySelect .oj-text-field,
+.form-group #citySelect .oj-text-field,
+.form-group #countrySelect input,
+.form-group #citySelect input,
+.form-group #countrySelect .oj-text-field-container .oj-text-field-input,
+.form-group #citySelect .oj-text-field-container .oj-text-field-input,
+.form-group #countrySelect .oj-text-field-container .oj-text-field,
+.form-group #citySelect .oj-text-field-container .oj-text-field {
+  font-size: 19px !important;
+  color: #333 !important;
+  line-height: 1.4 !important;
+}
+
+/* Target the actual displayed text in Oracle JET selects */
+oj-select-single[data-oj-id="countrySelect"] .oj-text-field-input,
+oj-select-single[data-oj-id="citySelect"] .oj-text-field-input,
+oj-select-single[data-oj-id="countrySelect"] .oj-text-field,
+oj-select-single[data-oj-id="citySelect"] .oj-text-field {
+  font-size: 19px !important;
+  color: #333 !important;
+}
+
+/* Strong focus override for Oracle JET select to remove blue focus line */
+.form-group oj-select-single *:focus {
+  outline: none !important;
+  box-shadow: none !important;
+}
+.form-group oj-select-single .oj-text-field:focus-within,
+.form-group oj-select-single.oj-focus .oj-text-field {
+  outline: none !important;
+  box-shadow: none !important;
+  border-color: #ddd !important; /* keep neutral border on focus */
+}
+/* Prevent inner input drawing its own focus border */
+.form-group oj-select-single .oj-text-field-input:focus {
+  outline: none !important;
+  box-shadow: none !important;
+  border: 0 !important; /* rely on container border */
+}
+
+/* Additional blue line removal for all Oracle JET select states */
+oj-select-single:focus,
+oj-select-single.oj-focus,
+oj-select-single .oj-text-field:focus,
+oj-select-single .oj-text-field.oj-focus,
+oj-select-single .oj-text-field-input:focus,
+oj-select-single .oj-text-field-container:focus {
+  outline: none !important;
+  box-shadow: none !important;
+  border-color: #ddd !important;
+}
+
+/* Remove any blue highlight from Oracle JET components */
+oj-select-single * {
+  outline: none !important;
+}
+
+oj-select-single .oj-text-field {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+oj-select-single .oj-text-field:focus-within {
+  outline: none !important;
+  box-shadow: none !important;
+  border-color: #ddd !important;
+}
+
+/* Processing Note Styling */
+.processing-note {
+  margin-top: 15px;
+  margin-bottom: 20px;
+  padding: 0;
+  background-color: transparent !important; /* remove background */
+  border-left: none !important; /* remove purple line */
+  border: none !important; /* remove all borders */
+  font-size: 13px;
+  color: #333;
+  border-radius: 4px;
+  line-height: 1.4;
+}
+
+.processing-note strong {
+  font-weight: 700;
+}
+
+/* Additional override to ensure no purple line */
+p.processing-note {
+  border-left: none !important;
+  border: none !important;
+  background: none !important;
+}
+
+/* ========================================
+   SCROLLBAR HIDING FOR EDIT PROFILE
+   ======================================== */
+
+/* Hide scrollbar completely for edit profile page */
+* {
+  -ms-overflow-style: none !important;  /* IE and Edge */
+  scrollbar-width: none !important;  /* Firefox */
+}
+
+::-webkit-scrollbar {
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
+}
+
+::-webkit-scrollbar-track {
+  display: none !important;
+}
+
+::-webkit-scrollbar-thumb {
+  display: none !important;
+}
+
+/* Specific targeting for edit profile elements */
+.two-column-layout,
+.outer-frame,
+.main-content,
+body,
+html {
+  -ms-overflow-style: none !important;
+  scrollbar-width: none !important;
+}
+
+.two-column-layout::-webkit-scrollbar,
+.outer-frame::-webkit-scrollbar,
+.main-content::-webkit-scrollbar,
+body::-webkit-scrollbar,
+html::-webkit-scrollbar {
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
+}
+
+/* Force hide scrollbar on all Oracle JET components */
+oj-app,
+oj-router,
+oj-module,
+oj-conveyor-belt,
+oj-list-view,
+oj-table,
+oj-datagrid {
+  -ms-overflow-style: none !important;
+  scrollbar-width: none !important;
+}
+
+oj-app::-webkit-scrollbar,
+oj-router::-webkit-scrollbar,
+oj-module::-webkit-scrollbar,
+oj-conveyor-belt::-webkit-scrollbar,
+oj-list-view::-webkit-scrollbar,
+oj-table::-webkit-scrollbar,
+oj-datagrid::-webkit-scrollbar {
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
+}
+
+/* ========================================
+   RESPONSIVE BREAKPOINTS
+   ======================================== */
+
+@media screen and (max-width: 1199px) {
+  .two-column-layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .two-column-layout > .btn-container {
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 6px; /* was 16px; keep tight spacing on mobile */
+  }
+  
+  .two-column-layout > .btn-container oj-button {
+    width: 100%;
+  }
+}
+
