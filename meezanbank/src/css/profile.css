@@ -314,6 +314,13 @@
   font-weight: 550 !important;
 }
 
+/* Edit Personal Details button styling */
+.edit-btn {
+  font-size: 14px !important;
+}
+
+
+
 /* Slide down animation for success message */
 @keyframes slideDown {
   0% {

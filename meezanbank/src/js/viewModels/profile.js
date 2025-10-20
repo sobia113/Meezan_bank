@@ -9,7 +9,7 @@ define([
     self.API_BASE_URL = 'http://localhost:8080/api/profiles';
 
 
-    self.profileId = ko.observable(8);
+    self.profileId = ko.observable(57);
     self.fullName = ko.observable("");
     self.accountTitle = ko.observable("");
     self.filerStatus = ko.observable("");
@@ -21,7 +21,6 @@ define([
     self.email = ko.observable("");
     self.location = ko.observable("");
 
-    // Date formatting function: "2025-12-18" -> "18 Dec 2025"
     self.formatDate = function(dateString) {
       if (!dateString) return "-";
       var months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
@@ -32,8 +31,6 @@ define([
       var day = parseInt(parts[2]);
       return day + " " + month + " " + year;
     };
-
-    // Formatted dates for display
     self.formattedCnicExpiry = ko.computed(function() {
       return self.formatDate(self.cnicExpiry());
     });
@@ -42,7 +39,6 @@ define([
       return self.formatDate(self.dob());
     });
 
-    // Formatted location with proper capitalization
     self.formattedLocation = ko.computed(function() {
       var loc = self.location();
       if (!loc) return "-";
@@ -51,9 +47,6 @@ define([
       }).join(', ');
     });
 
-  // CNIC upload observables
-  self.cnicFile = ko.observable(null);
-  self.cnicPreview = ko.observable("");
 
     self.isLoading = ko.observable(false);
     self.errorMessage = ko.observable("");
@@ -121,7 +114,6 @@ define([
           self.address(data.address || "");
           self.phone(data.phone || "");
           self.email(data.email || "");
-          // Location format: City, Country (e.g. "Karachi, Pakistan")
           self.location((data.city ? data.city : "") + (data.country ? ", " + data.country : ""));
           
           self.isLoading(false);
@@ -132,85 +124,6 @@ define([
           console.error('Error:', error);
         });
     };
-
-    
-    /**
-     * Handle CNIC file selection: store file and show preview in the CNIC card image.
-     * This is called from the inline onchange in the HTML: onchange="handleCnicUpload(event)"
-     */
-    self.handleCnicUpload = function (event) {
-      var file = event && event.target && event.target.files && event.target.files[0];
-      if (!file) {
-        console.warn('No CNIC file selected');
-        return;
-      }
-      // store file
-      self.cnicFile(file);
-
-      // create preview
-      var reader = new FileReader();
-      reader.onload = function (e) {
-        try {
-          self.cnicPreview(e.target.result);
-          // update the image element in the CNIC card if present
-          var img = document.querySelector('.cnic-card-container img');
-          if (img) img.src = e.target.result;
-        } catch (err) {
-          console.error('Error setting CNIC preview:', err);
-        }
-      };
-      reader.readAsDataURL(file);
-    };
-
-    /**
-     * Upload the selected CNIC file to the server. If API is not available, show a simulated success.
-     * This is called from the inline onclick in the HTML: onclick="updateCnic()"
-     */
-    self.updateCnic = function () {
-      var file = self.cnicFile();
-      if (!file) {
-        alert('Please select a CNIC image before updating. Click the dashed box to choose a file.');
-        return;
-      }
-
-      // Try to POST to backend (best-effort). If API rejects, fall back to showing success locally.
-      var endpoint = self.API_BASE_URL + '/' + (self.profileId() || '1') + '/cnic';
-      var formData = new FormData();
-      formData.append('cnic', file);
-
-      self.isLoading(true);
-      fetch(endpoint, {
-        method: 'POST',
-        body: formData
-      })
-      .then(function (response) {
-        self.isLoading(false);
-        if (response.ok) {
-          alert('CNIC uploaded successfully');
-          // optionally trigger success UI
-          window.profileUpdateSuccess = true;
-          self.showSuccessPopup();
-        } else {
-          // fallback: show success locally but log the error
-          console.warn('CNIC upload failed (server). Status:', response.status);
-          alert('CNIC processed locally (server unavailable). Preview saved.');
-          window.profileUpdateSuccess = true;
-          self.showSuccessPopup();
-        }
-      })
-      .catch(function (err) {
-        self.isLoading(false);
-        console.error('CNIC upload error:', err);
-        // fallback success behavior
-        alert('Unable to reach server — CNIC preview saved locally.');
-        window.profileUpdateSuccess = true;
-        self.showSuccessPopup();
-      });
-    };
-
-    // Expose global handlers so inline attributes in the HTML can call them
-    window.handleCnicUpload = function (e) { return self.handleCnicUpload(e); };
-    window.updateCnic = function () { return self.updateCnic(); };
 
     self.goToEdit = function () {
       Router.rootInstance.go('edit-profile');
@@ -223,7 +136,6 @@ define([
     self.connected = function() {
       console.log('Profile page connected');
       
-      // Store profileId in sessionStorage for other pages to use
       sessionStorage.setItem('currentProfileId', self.profileId());
       console.log('Stored profileId in sessionStorage:', self.profileId());
       
@@ -234,17 +146,6 @@ define([
         self.checkForSuccessFlag();
       }, 300);
 
-      // Attach CNIC file input listener here to ensure handler exists when user selects a file
-      try {
-        var fileInput = document.getElementById('cnicUpload');
-        if (fileInput) {
-          // remove any previous listener to avoid duplicates
-          fileInput.removeEventListener('change', window.handleCnicUpload);
-          fileInput.addEventListener('change', self.handleCnicUpload);
-        }
-      } catch (err) {
-        console.warn('Could not attach CNIC file input listener:', err);
-      }
     };
   }
 

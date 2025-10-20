@@ -6,7 +6,6 @@ function(ko, oj, ojko, Router) {
     self.API_BASE_URL = 'http://localhost:8080/api/profiles';
     self.OTP_API_URL = 'http://localhost:8080/api/otp';
 
-    // ✅ Read profileId from sessionStorage (set by profile.js) - NO hardcoded fallback
     var storedProfileId = sessionStorage.getItem('currentProfileId');
     self.profileId = ko.observable(storedProfileId ? parseInt(storedProfileId) : null);
     console.log('EditProfile loaded with profileId:', self.profileId(), '(from profile.js)');
@@ -101,13 +100,20 @@ function(ko, oj, ojko, Router) {
         return;
       }
 
-      var phonePattern = /^03\d{2}-\d{7}$/;
-      if (formattedValue && !phonePattern.test(formattedValue)) {
-        self.phoneError('Please enter a valid phone number (03xx-xxxxxxx)');
+      // Check if phone is blank or contains placeholder text
+      if (!formattedValue || !formattedValue.trim() || formattedValue.trim() === '03xx-xxxxxxx') {
+        self.phoneError('Phone number is required');
         if (phoneElement) phoneElement.style.borderColor = '#dc3545';
       } else {
-        self.phoneError('');
-        if (phoneElement) phoneElement.style.borderColor = '#ccc';
+        // Check phone format only if phone is not blank
+        var phonePattern = /^03\d{2}-\d{7}$/;
+        if (!phonePattern.test(formattedValue)) {
+          self.phoneError('Please enter a valid phone number (03xx-xxxxxxx)');
+          if (phoneElement) phoneElement.style.borderColor = '#dc3545';
+        } else {
+          self.phoneError('');
+          if (phoneElement) phoneElement.style.borderColor = '#ccc';
+        }
       }
     });
 
@@ -115,12 +121,19 @@ function(ko, oj, ojko, Router) {
       var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
       var emailElement = document.getElementById('email');
       
-      if (newValue && !emailPattern.test(newValue)) {
-        self.emailError('Please enter a valid email address');
+      // Check if email is blank or contains placeholder text
+      if (!newValue || !newValue.trim() || newValue.trim() === 'example@email.com') {
+        self.emailError('Email is required');
         if (emailElement) emailElement.style.borderColor = '#dc3545';
       } else {
-        self.emailError('');
-        if (emailElement) emailElement.style.borderColor = '#ccc';
+        // Check email format only if email is not blank
+        if (!emailPattern.test(newValue)) {
+          self.emailError('Please enter a valid email address');
+          if (emailElement) emailElement.style.borderColor = '#dc3545';
+        } else {
+          self.emailError('');
+          if (emailElement) emailElement.style.borderColor = '#ccc';
+        }
       }
     });
 
@@ -179,7 +192,7 @@ function(ko, oj, ojko, Router) {
           self.email(data.email || "");
           
           if (data.country) {
-            // Handle case sensitivity - convert to proper case
+        
             var countryValue = data.country.toLowerCase();
             if (countryValue === 'turkey') {
               self.selectedCountry('Turkey');
@@ -211,25 +224,56 @@ function(ko, oj, ojko, Router) {
       var emailValue = self.email();
       var isValid = true;
 
-      var phonePattern = /^03\d{2}-\d{7}$/;
-      if (!phonePattern.test(phoneValue)) {
-        self.phoneError('Please enter a valid phone number (03xx-xxxxxxx)');
+      // Check if phone is blank or contains placeholder text
+      if (!phoneValue || !phoneValue.trim() || phoneValue.trim() === '03xx-xxxxxxx') {
+        self.phoneError('Phone number is required');
         var phoneElement = document.getElementById('phone');
         if (phoneElement) phoneElement.style.borderColor = '#dc3545';
         isValid = false;
+      } else {
+        // Check phone format only if phone is not blank
+        var phonePattern = /^03\d{2}-\d{7}$/;
+        if (!phonePattern.test(phoneValue)) {
+          self.phoneError('Please enter a valid phone number (03xx-xxxxxxx)');
+          var phoneElement = document.getElementById('phone');
+          if (phoneElement) phoneElement.style.borderColor = '#dc3545';
+          isValid = false;
+        } else {
+          // Clear phone error if valid
+          self.phoneError('');
+          var phoneElement = document.getElementById('phone');
+          if (phoneElement) phoneElement.style.borderColor = '';
+        }
       }
 
-      var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      if (!emailPattern.test(emailValue)) {
-        self.emailError('Please enter a valid email address');
+      // Check if email is blank or contains placeholder text
+      if (!emailValue || !emailValue.trim() || emailValue.trim() === 'example@email.com') {
+        self.emailError('Email is required');
         var emailElement = document.getElementById('email');
         if (emailElement) emailElement.style.borderColor = '#dc3545';
         isValid = false;
+      } else {
+        // Check email format only if email is not blank
+        var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailPattern.test(emailValue)) {
+          self.emailError('Please enter a valid email address');
+          var emailElement = document.getElementById('email');
+          if (emailElement) emailElement.style.borderColor = '#dc3545';
+          isValid = false;
+        } else {
+          // Clear email error if valid
+          self.emailError('');
+          var emailElement = document.getElementById('email');
+          if (emailElement) emailElement.style.borderColor = '';
+        }
       }
 
       if (!self.address() || !self.address().trim()) {
         self.addressError('Address is required');
         isValid = false;
+      } else {
+        // Clear address error if valid
+        self.addressError('');
       }
 
       if (!self.selectedCountry()) {
@@ -240,10 +284,6 @@ function(ko, oj, ojko, Router) {
       if (!self.selectedCity()) {
         self.cityError('City is required');
         isValid = false;
-      }
-
-      if (!isValid) {
-        alert('Please fix the validation errors before proceeding.');
       }
 
       return isValid;
@@ -302,12 +342,12 @@ function(ko, oj, ojko, Router) {
         console.log('OTP generated successfully:', data);
         self.isLoading(false);
         
-        var otpMessage = 'OTP Successfully Generated!\n\n';
-        otpMessage += 'Your OTP: ' + (data.otpCode || 'XXXXXX') + '\n\n';
-        otpMessage += 'This OTP is valid for 5 minutes.';
-        
-        console.log('OTP CODE:', data.otpCode);
-        alert(otpMessage);
+        // Show OTP success message if available
+        if (data && data.message) {
+          alert(data.message);
+        } else {
+          alert('OTP Successfully Generated!\nYour OTP: ' + (data.otp || 'Check your phone/email') + '\nThis OTP is valid for 5 minutes.');
+        }
         
         console.log('Navigating to OTP page...');
         self.navigateToOtpPage();
@@ -324,7 +364,7 @@ function(ko, oj, ojko, Router) {
       var profileIdValue = self.profileId();
       console.log('Starting navigation to OTP page with profileId:', profileIdValue);
       
-      // ✅ Store profileId in sessionStorage for reliable access
+      // Store profileId in sessionStorage for reliable access
       sessionStorage.setItem('currentProfileId', profileIdValue);
       
       var router = oj.Router.rootInstance;
@@ -397,6 +437,12 @@ function(ko, oj, ojko, Router) {
     self.connected = function() {
       console.log('EditProfile ViewModel Connected');
       self.loadProfile();
+      
+      // Force validation immediately and after a delay
+      self.validateFormData();
+      setTimeout(function() {
+        self.validateFormData();
+      }, 500);
     };
   }
 

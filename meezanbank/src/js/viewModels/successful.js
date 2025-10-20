@@ -8,7 +8,6 @@ define([
 
     self.API_BASE_URL = 'http://localhost:8080/api/profiles';
 
-    // Profile fields
     self.profileId = ko.observable(7);
     self.fullName = ko.observable("");
     self.accountTitle = ko.observable("");
@@ -22,7 +21,6 @@ define([
     self.location = ko.observable("");
     self.isLoading = ko.observable(false);
 
-    // Date formatting function: "2025-12-18" -> "18 Dec 2025"
     self.formatDate = function(dateString) {
       if (!dateString) return "-";
       var months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
@@ -34,7 +32,6 @@ define([
       return day + " " + month + " " + year;
     };
 
-    // Formatted dates for display
     self.formattedCnicExpiry = ko.computed(function() {
       return self.formatDate(self.cnicExpiry());
     });
@@ -43,7 +40,6 @@ define([
       return self.formatDate(self.dob());
     });
 
-    // Formatted location with proper capitalization
     self.formattedLocation = ko.computed(function() {
       var loc = self.location();
       if (!loc) return "-";
@@ -52,7 +48,6 @@ define([
       }).join(', ');
     });
 
-    // Load profile data
     self.loadProfile = function() {
       self.isLoading(true);
 
@@ -76,7 +71,6 @@ define([
           self.address(data.address || "");
           self.phone(data.phone || "");
           self.email(data.email || "");
-          // Location format: City, Country (e.g. "Karachi, Pakistan")
           self.location((data.city ? data.city : "") + (data.country ? ", " + data.country : ""));
           
           self.isLoading(false);
@@ -87,7 +81,6 @@ define([
         });
     };
 
-    // Actions
     self.updateCnic = function () {
       alert("Update CNIC clicked!");
     };
@@ -100,17 +93,14 @@ define([
       Router.rootInstance.go('profile');
     };
 
-    // Initialize when page loads
     self.connected = function() {
       console.log('Successful page connected');
       
-      // Get profileId from sessionStorage
       var storedProfileId = sessionStorage.getItem('currentProfileId');
       if (storedProfileId) {
         self.profileId(parseInt(storedProfileId));
       }
       
-      // Load the updated profile data
       self.loadProfile();
     };
   }

@@ -4,7 +4,6 @@ define(['knockout', 'ojs/ojrouter', 'ojs/ojbutton'], function(ko, Router) {
 
     self.OTP_API_URL = 'http://localhost:8080/api/otp';
 
-    // Dynamic profileId acceptance - Try router params first, then sessionStorage
     var routerProfileId = params && params.profileId ? params.profileId : null;
     var storedProfileId = sessionStorage.getItem('currentProfileId');
     
@@ -24,6 +23,7 @@ define(['knockout', 'ojs/ojrouter', 'ojs/ojbutton'], function(ko, Router) {
 
     var intervalId = null;
 
+    // Timer management
     self.connected = function() {
       if (intervalId) return;
       intervalId = setInterval(function() {
@@ -63,7 +63,6 @@ define(['knockout', 'ojs/ojrouter', 'ojs/ojbutton'], function(ko, Router) {
       self.allFilled(Array.from(boxes).every(b => b.value.length === 1));
     };
 
-    // Add backspace functionality without modifying HTML
     self.connected = function() {
       if (intervalId) return;
       intervalId = setInterval(function() {
@@ -84,7 +83,6 @@ define(['knockout', 'ojs/ojrouter', 'ojs/ojbutton'], function(ko, Router) {
           box.addEventListener('keydown', function(event) {
             if (event.key === 'Backspace') {
               if (box.value.length === 0) {
-                // If current box is empty, move to previous box
                 var prev = box.previousElementSibling;
                 if (prev && prev.classList.contains('otp-box')) {
                   prev.focus();
